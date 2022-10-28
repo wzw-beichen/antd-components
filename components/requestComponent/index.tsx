@@ -6,14 +6,13 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { handleDataField } from "../utils";
 import type { CommonRecord, RequestComponentRef, TRequestConfig } from "./type";
+import { handleDataField } from "./utils";
 
 export type RequestComponentProps<T> = TRequestConfig<T> & {
   renderItem?: (list: T[]) => React.ReactNode;
   /** 首次是否请求，默认为true，下拉搜索框第一次不用请求 */
   firstRequest?: boolean;
-  children?: (value: { list: CommonRecord[] }) => ReactNode;
 };
 
 /** @name 数据请求DataRequestComponent, 可能组件类型不同，例如下拉框、checkBox */
@@ -21,12 +20,7 @@ const DataRequestComponent = <T extends CommonRecord>(
   props: RequestComponentProps<T>,
   ref: Ref<RequestComponentRef<T>>
 ) => {
-  const {
-    requestConfig = {},
-    renderItem,
-    firstRequest = true,
-    children,
-  } = props;
+  const { requestConfig = {}, renderItem, firstRequest = true } = props;
   const {
     request,
     extraParams,

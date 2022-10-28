@@ -5,24 +5,24 @@ import { UploadFile } from "antd/lib/upload/interface";
 import { UploadStatusEnum } from "../basicUpload/constant";
 import { SortableElement } from "react-sortable-hoc";
 import { CustomSortableElementProps, UploadTypeEnum } from "./type";
-// import VideoPlayerModal, {
-//   VideoPlayerModalRef,
-// } from "@/pages/components/VideoPlayerModal";
+import VideoPlayerModal, {
+  VideoPlayerModalRef,
+} from "../videoUpload/videoPlayerModal";
 
 const SortableItem = SortableElement((props: CustomSortableElementProps) => {
   const { item, fileType = UploadTypeEnum.Image, ...restProps } = props;
   const { status } = item;
 
-  // const videoPlayerModalRef = useRef<VideoPlayerModalRef | null>(null);
+  const videoPlayerModalRef = useRef<VideoPlayerModalRef | null>(null);
 
   const [previewImage, setPreviewImage] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
 
   const handlePreview = (file: UploadFile) => {
-    // if (UploadTypeEnum.Video === fileType) {
-    //   videoPlayerModalRef.current?.setVisible(true);
-    //   return;
-    // }
+    if (UploadTypeEnum.Video === fileType) {
+      videoPlayerModalRef.current?.setVisible(true);
+      return;
+    }
     const { url } = file;
     if (url && UploadTypeEnum.Image === fileType) {
       setPreviewImage(url);
@@ -83,7 +83,7 @@ const SortableItem = SortableElement((props: CustomSortableElementProps) => {
           }}
         />
       )}
-      {/* {UploadTypeEnum.Video === fileType && (
+      {UploadTypeEnum.Video === fileType && (
         <VideoPlayerModal
           ref={videoPlayerModalRef}
           videoJsOptions={{
@@ -92,12 +92,12 @@ const SortableItem = SortableElement((props: CustomSortableElementProps) => {
             sources: [
               {
                 src: item.videoUrl,
-                type: 'video/mp4',
+                type: "video/mp4",
               },
             ],
           }}
         />
-      )} */}
+      )}
     </div>
   );
 });

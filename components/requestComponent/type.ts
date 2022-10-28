@@ -6,11 +6,6 @@ export type TRequestConfig<T> = {
     request?: (data?: CommonRecord) => Promise<any>;
     /** 额外参数 */
     extraParams?: Record<string, any>;
-    /** 重命名获取数据分页参数, 默认使用currentPage, pageSize */
-    reqRename?: {
-      currentPage?: string;
-      pageSize?: string;
-    };
     /** 重命名响应参数, 默认使用data.pageData, data.totalRecords */
     resRename?: {
       listStr?: string;

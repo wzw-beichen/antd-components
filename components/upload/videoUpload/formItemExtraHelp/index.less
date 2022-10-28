@@ -1,0 +1,46 @@
+@import '~antd/es/style/themes/default.less';
+
+.label {
+  padding-left: @margin-xs;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.form_item_extra {
+  margin-bottom: 12px;
+
+  :global {
+    .ant-form-item-label {
+      padding-bottom: 4px;
+    }
+  }
+
+  &_label {
+    display: inline-block;
+  }
+
+  &_help {
+    padding-top: 4px;
+    color: #8d95a7;
+  }
+
+  :global {
+    .ant-form-item-required {
+      .form_item_extra_label {
+        &::after {
+          display: inline-block;
+          margin-left: 4px;
+          font-size: 14px;
+          font-family: SimSun, sans-serif;
+          color: #ff6e69;
+          line-height: 1;
+          content: '*';
+        }
+      }
+
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+}
