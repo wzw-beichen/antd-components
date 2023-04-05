@@ -173,3 +173,32 @@ export const arrayChunk = <T>(array: T[], size = 1): T[][] => {
   }
   return result;
 };
+
+/**
+ * @description 创建一个组成对象，key（键）是经过 iteratee（迭代函数） 执行处理collection中每个元素后返回的结果，
+ *              每个key（键）对应的值是 iteratee（迭代函数）返回该key（键）的次数（注：迭代次数）。
+ *              iteratee 调用一个参数：(value)。
+ * @param collection 一个用来迭代的集合
+ * @param iteratee 一个迭代函数，用来转换key（键）
+ * @returns 返回一个组成集合对象
+ * @example countBy([6.1, 4.2, 6.3], Math.floor) ===> { '4': 1, '6': 2 }
+ *    countBy(['one', 'two', 'three'], 'length') ===> { '3': 2, '5': 1 }
+ */
+export const arrayCountBy = <T extends any>(
+  collection: Array<T> | Object,
+  iteratee?: Function | string
+) => {
+  const newCollection = collection as Array<T>;
+  const total: Record<string, number> = {};
+  for (let item of newCollection) {
+    let value = item as string;
+    if (typeof iteratee === "string") {
+      value = value[iteratee];
+    }
+    if (typeof iteratee === "function") {
+      value = iteratee(value);
+    }
+    total[value] = total[value] ? ++total[value] : 1;
+  }
+  return total;
+};
