@@ -205,7 +205,7 @@ export const arrayCountBy = <T extends any>(
 
 /**
  * @description 遍历 collection（集合）元素，返回 predicate（断言函数）最后一个返回真值的元素。
- * @param array 一个用来迭代的集合
+ * @param collection 一个用来迭代的集合
  * @param predicate 断言函数
  * @param fromIndex 开始搜索的索引位置
  * @returns 返回一个组成集合对象
@@ -214,13 +214,13 @@ export const arrayCountBy = <T extends any>(
  * arrayFindLast(data, () => !(n % 2)) ===> [4, 3]
  */
 export const arrayFindLast = <T>(
-  array: T[],
+  collection: T[],
   predicate: (item: T, index?: number, array?: T[]) => boolean,
   fromIndex = 0
 ): [T | undefined, number] => {
-  const newArray = array.slice(fromIndex);
+  const newArray = collection.slice(fromIndex);
   const [lastItem, lastIndex] = newArray.reduce((total, item, index) => {
-    const bool = predicate(item, index, array);
+    const bool = predicate(item, index, collection);
     total = bool ? [item, index] : [undefined, -1];
     return total;
   }, [] as unknown as [T | undefined, number]);
