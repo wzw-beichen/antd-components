@@ -148,3 +148,28 @@ export const pickArrayItem = <T>(
   const minIndex = Math.min(numIndex, lastIndex);
   return array[minIndex];
 };
+
+/**
+ * @description 将数组（array）拆分成多个 size 长度的区块，并将这些区块组成一个新数组。
+ *              如果array 无法被分割成全部等长的区块，那么最后剩余的元素将组成一个区块。
+ * @param array Array  需要处理的数组
+ * @param size  number 每个数组区块的长度 [size=1]
+ * @returns {Array} 返回一个包含拆分区块的新数组（注：相当于一个二维数组）
+ * @example const data = ['a', 'b', 'c', 'd']
+ *          arrayChunk(['a', 'b', 'c', 'd'], 2) ===> [['a', 'b'], ['c', 'd']]
+ *          arrayChunk(['a', 'b', 'c', 'd'], 3) ===> [['a', 'b', 'c'], ['d']]
+ */
+export const arrayChunk = <T>(array: T[], size = 1): T[][] => {
+  const length = Array.isArray(array) ? array.length : 0;
+  if (size < 1 || !length) {
+    return [];
+  }
+  const chunkLength = Math.ceil(length / size);
+  const result = new Array(chunkLength);
+  let index = 0;
+  for (let i = 0; i < length; i += size) {
+    result[index] = array.slice(i, i + size);
+    index++;
+  }
+  return result;
+};
