@@ -1,17 +1,19 @@
+import { pickArrayItem } from "../array";
+
 /**
- * @description 处理url上search数据
- * 注意: useLocation().query会处理特殊字符
+ * @description 获取url searchParams数据
+ * @param url 浏览器url
  */
-export const handleSplitURL = <T>(url: string): T => {
-  const [paramStr] = url.split("?").reverse();
-  const objArr = paramStr.split("&");
-  const obj = {} as Record<string, any>;
-  objArr.forEach((itm) => {
+export const getSearchParams = <T>(url: string): T => {
+  const query = pickArrayItem(url.split("?"));
+  const strArr = query.split("&");
+  const searchParams = {} as T;
+  strArr.forEach((itm) => {
     const [key, value] = itm.split("=");
     // 避免无search时
     if (value) {
-      obj[key] = value;
+      searchParams[key] = value;
     }
   });
-  return obj as T;
+  return searchParams as T;
 };
