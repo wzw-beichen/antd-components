@@ -210,8 +210,9 @@ export const arrayCountBy = <T extends any>(
  * @param fromIndex 开始搜索的索引位置
  * @returns 返回一个组成集合对象
  * @example data = [1, 2, 3, 4];
- * arrayFindLast(data, () => n % 2) ===> [3, 2]
- * arrayFindLast(data, () => !(n % 2)) ===> [4, 3]
+ * arrayFindLast(data, (n) => n % 2) ===> [3, 2]
+ * arrayFindLast(data, (n) => !(n % 2)) ===> [4, 3]
+ * arrayFindLast(data, (n) => n > 5) ===> [undefined, -1]
  */
 export const arrayFindLast = <T>(
   collection: T[],
