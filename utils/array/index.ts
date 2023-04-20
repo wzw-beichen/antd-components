@@ -227,3 +227,24 @@ export const arrayFindLast = <T>(
   }, [] as unknown as [T | undefined, number]);
   return [lastItem, lastIndex];
 };
+
+/**
+ * @description 图片数组转换成字符串。
+ * @param imgArr 图片数组
+ * @param separator 可选。要使用的分隔符。如果省略，元素用逗号分隔。
+ * @example data = [{ url: 'https://1.png' }, { url: 'https://2.png' }];
+ * imgArrayTransformString(data) ===> 'https://1.png,https://2.png'
+ * imgArrayTransformString(data, '%') ===> 'https://1.png%https://2.png'
+ */
+export const imgArrayTransformString = (
+  imgArr?: { url: string }[],
+  separator: string = ","
+) => {
+  if (!imgArr?.length) {
+    return "";
+  }
+  return imgArr
+    .map((item) => item.url)
+    .filter(Boolean)
+    .join(separator);
+};
