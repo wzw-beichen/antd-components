@@ -1,5 +1,9 @@
 import moment from "moment";
-import { commonDealFunc, initConfigItem } from "./commonUtils";
+import {
+  commonDealFunc,
+  initConfigItem,
+  resolveOmitOriginKey,
+} from "./commonUtils";
 import { dateArr } from "./constants";
 import { DealConfigType } from "./type";
 
@@ -12,14 +16,21 @@ export const afterRequestDataDeal = (
   }
   const dealData = dealConfig.reduce((total, configItem) => {
     let { value, defaultConfigItem } = initConfigItem(total, configItem);
-    const { type, key } = defaultConfigItem;
-    if (dateArr.includes(type)) {
+    const { afterRequestType, type } = defaultConfigItem;
+    const newType = afterRequestType ?? type;
+    defaultConfigItem.type = newType;
+    let otherValues = {};
+    if (newType && dateArr.includes(newType)) {
       value = value ? moment(value) : value;
     }
-    value = commonDealFunc(value, defaultConfigItem);
+    value = commonDealFunc(value, defaultConfigItem, total);
+    otherValues = resolveOmitOriginKey(
+      { otherValues, value },
+      defaultConfigItem
+    );
     return {
       ...total,
-      [key]: value,
+      ...otherValues,
     };
   }, data);
 

@@ -16,6 +16,9 @@ export const basicDataTypeArr = [
 
   "arrayToggleString",
   "stringToggleArray",
+
+  "labelInValueToggleObject",
+  "objectTogglelabelInValue",
 ];
 export const objectDataTypeArr = ["jsonString", "jsonParse"];
 export const dataTypeArr = [...basicDataTypeArr, ...objectDataTypeArr];
